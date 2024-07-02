@@ -15,9 +15,7 @@
 1. Üstteki proje seçicisini tıklayın ve "New Project"yi seçin.
 2. Projeye bir isim verin ve oluşturun.
 
-# Compute Engine API'sini Etkinleştirme
-
-### Compute Engine API'sini Etkinleştirin
+### Compute Engine API'sini Etkinleştirme
 
 1. Menüden "Compute Engine" -> "VM Instances" sekmesine gidin.
 2. "Enable" butonuna tıklayarak Compute Engine API'sini etkinleştirin.
@@ -58,16 +56,14 @@
    TCP: 8080
 5. Create
 
-## SSH ile Bağlantı Kurma
+# SSH ile Bağlantı Kurma
 
 ### Google Cloud Console üzerinden SSH ile Bağlantı
 
 1. VM Instances listesinden yeni oluşturduğunuz VM'yi bulun.
 2. "SSH" butonuna tıklayarak tarayıcı üzerinden VM'ye bağlanın.
 
-# Ubuntu 24.04 LTS'yi Güncelleme
-
-### Paketleri Güncelleme
+### Ubuntu 24.04 LTS'yi Güncelleme
 
 SSH ile bağlandıktan sonra, paket listelerini güncelleyin ve sisteminizi güncel tutun:
 
@@ -76,15 +72,11 @@ sudo apt update
 sudo apt upgrade
 ```
 
-############################
-
-### jenkins kurulumu:
-
-############################
+# jenkins kurulumu:
 
 Jenkins serverda :
 
-'jenkins.sh' dosyası oluşturup içine bunları yapıştırıyoruz;
+'jenkins.sh' dosyası oluşturup içine aşağıdaki scripti yapıştırıyoruz;
 
 ```sh
 nano jenkins.sh
@@ -122,7 +114,7 @@ else
 fi
 ```
 
-Yetkilendirme
+Yetkilendirme:
 
 ```sh
 ls -al
@@ -135,11 +127,8 @@ jenkins.sh' dosyasını çalıştırıyoruz ve Jenkins kurulacak
 bash ./jenkins.sh
 ```
 
-###########################################
+# Jenkins Server'a Docker kurulumu:
 
-### Jenkins Server'a Docker kurulumu:
-
-###########################################
 
 'docker.sh' dosyası oluşturma:
 
@@ -147,7 +136,7 @@ bash ./jenkins.sh
 nano docker.sh
 ```
 
-dosyanın içi:
+dosyanın içeriği:
 
 ```sh
 #!/bin/bash
@@ -207,21 +196,17 @@ bash ./docker.sh
 getent group docker
 ```
 
-####################################################
+# 2. LINUX SERVER AYAĞA KALDIR (jENKİNS SERVİR GİBİ)
 
-#### YENİ VM AYAĞA KALDIR (jENKİNS SERVİR GİBİ)
-
-####################################################
-
-Servere-name: 'nginx'
+**Servere-name**: 'nginx'
 
 Bu server Nginx ve Certbot kullanarak güvenli bağlantı için kullanılacak.
 
 **Bu serverin 'nginx server' public ip'sine Domain name ile "A record" yapacağız. "mecitdevops.com" ve "www.mecitdevops.com" şeklinde**
 
-### Jenkins'in Güvenli Bağlantısının Ayarlanması (SSL):
+# Jenkins'in Güvenli Bağlantısının Ayarlanması (SSL):
 
-## Nginx ile Reverse Proxy Kurulumu:
+### Nginx ile Reverse Proxy Kurulumu:
 
 Ücretsiz Let’s Encrypt Sertifikası Kullanmak
 
@@ -233,37 +218,30 @@ sudo apt install -y nginx
 sudo apt install certbot python3-certbot-nginx -y
 ```
 
-# kurulumdan sonra domain name belirtiyoruz
+### Kurulumdan sonra domain name belirtiyoruz:
 
 ```sh
 sudo certbot --nginx -d mecitdevops.com -d www.mecitdevops.com
 ```
 
-# Çıktı bu şekilde olacak:
+### Çıktı bu şekilde olacak:
 
+---
 Saving debug log to /var/log/letsencrypt/letsencrypt.log
 Enter email address (used for urgent renewal and security notices)
 (Enter 'c' to cancel): mecit.tuksoy@gmail.com
-
----
 
 Please read the Terms of Service at
 https://letsencrypt.org/documents/LE-SA-v1.4-April-3-2024.pdf. You must agree in
 order to register with the ACME server. Do you agree?
 
----
-
 (Y)es/(N)o: y
-
----
 
 Would you be willing, once your first certificate is successfully issued, to
 share your email address with the Electronic Frontier Foundation, a founding
 partner of the Let's Encrypt project and the non-profit organization that
 develops Certbot? We'd like to send you email about our work encrypting the web,
 EFF news, campaigns, and ways to support digital freedom.
-
----
 
 (Y)es/(N)o: y
 Account registered.
@@ -281,8 +259,6 @@ Successfully deployed certificate for mecitdevops.com to /etc/nginx/sites-enable
 Successfully deployed certificate for www.mecitdevops.com to /etc/nginx/sites-enabled/default
 Congratulations! You have successfully enabled HTTPS on https://mecitdevops.com and https://www.mecitdevops.com
 We were unable to subscribe you the EFF mailing list because your e-mail address appears to be invalid. You can try again later by visiting https://act.eff.org.
-
----
 
 If you like Certbot, please consider supporting our work by:
 
@@ -348,36 +324,37 @@ yetki kontrol:
 ls -al
 ```
 
-# Bu değişiklikleri yaptıktan sonra bir yanlışlık olup olmadığını kontrol etmek için:
+### Bu değişiklikleri yaptıktan sonra bir yanlışlık olup olmadığını kontrol etmek için:
 
 ```sh
 sudo nginx -t
 ```
 
-çıktısı bu şekilde ise devam edebiliriz:
-
+Çıktısı bu şekilde ise devam edebiliriz:
+---
 nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
 nginx: configuration file /etc/nginx/nginx.conf test is successful
+---
 
-# nginx'i yeniden başlatmak için:
+### nginx'i yeniden başlatmak için:
 
 ```sh
 sudo systemctl restart nginx.service
 ```
 
-# domain name ile güvenli bağlantı ile (domain name) jenkinse bağlanabiliriz
+### Domain name ile güvenli bağlantı ile (domain name) jenkinse bağlanabiliriz
 
 ```sh
 sudo cat /var/lib/jenkins/secrets/initialAdminPassword
 ```
 
-bu komutu jenkins serverinda girerek gelen şifreyi tarayıcıda ilgili yere yazıyoruz ve jenkins'e giriyoruz.
+Bu komutu jenkins serverinda girerek gelen şifreyi tarayıcıda ilgili yere yazıyoruz ve jenkins'e giriyoruz.
 
 Gelen ekranda **Install suggested plugins** e tıklayarak devam ediyoruz.
 
 **Create First Admin User** sayfasında yeni kullanıcı adı ve şifre belirlip başlatma işlemini bitiriyoruz.
 
-# Nginx kurduğumuz makinede oluşturacağımız image çekip docker containere çalıştıracağımız için bu makineyede docker kuruyoruz:
+# 2. Linüx servera Docker kurulumu:
 
 ```sh
 sudo nano docker.sh
@@ -439,7 +416,8 @@ bash ./docker.sh
 
 4- "Yüklenebilecek eklentiler" bölümünden **Docker** , **Docker Pipeline** eklentilerini yükleyin.
 
-## GitHub'ta webhooks ayarlamak için:
+
+# GitHub'ta webhooks ayarlamak için:
 
 1- GitHub hesabınıza giriş yapın ve ilgili repository'yi seçin.
 
@@ -452,6 +430,7 @@ bash ./docker.sh
 5- "Payload URL" alanına "https://www.<domain-name>/github-webhook/" yazın.
 
 6- Başka bir değişiklik veya girdi yapmadan "Add Webhook" diyebiliriz.
+
 
 # Docker Hub'da bir access token oluşturmak için:
 
@@ -467,7 +446,8 @@ bash ./docker.sh
 
 6- Oluşturulan token'ı kopyalayın.
 
-## Jenkins'te Docker Hub kimlik bilgilerinizi ayarlamak için:
+
+# Jenkins'te Docker Hub kimlik bilgilerinizi ayarlamak için:
 
 1- Jenkins dashboard'una gidin.
 
@@ -504,7 +484,8 @@ isim yaz,
 
 7- "ADD KEY" tıkla ve "Service account" ardından json formatında "create" et ve kaydet.
 
-## Jenkins'te Google Cloud kimlik bilgilerinizi (key) ayarlamak için:
+
+# Jenkins'te Google Cloud kimlik bilgilerinizi (key) ayarlamak için:
 
 1- Jenkins dashboard'una gidin.
 
@@ -522,7 +503,8 @@ isim yaz,
 
 8- "Create" düğmesine tıklayarak bilgilerinizi kaydedin.
 
-## Jenkins'de webhooks trigir ayarı için:
+
+# Jenkins'de webhooks trigir ayarı için:
 
 1- Jenkins ana sayfasında "Yeni Öğe"'ye tıklayın.
 
@@ -542,11 +524,9 @@ isim yaz,
 
 9- "Kaydet" diyebiliriz.
 
-#############################
-
-###### Jenkinsfile
-
-#############################
+---
+# Jenkinsfile
+---
 
 ```sh
 
@@ -567,8 +547,8 @@ pipeline {
     stages {
         stage('Clone repository') {
             steps {
-                sh 'rm -rf simple-java-container-CI-CD || true'
-                sh 'git clone https://github.com/Mecit-tuksoy/simple-java-container-CI-CD.git'
+                sh 'rm -rf gcloud-simple-java-app-docker-jenkins || true'
+                sh 'git clone https://github.com/Mecit-tuksoy/gcloud-simple-java-app-docker-jenkins.git'
             }
         }
 
@@ -632,7 +612,7 @@ pipeline {
 
 ```
 
-# Pipeline "Package Application" aşamasında kullandığı "package-application.sh" dosyası:
+### Pipelin'ın "Package Application" aşamasında kullandığı "package-application.sh" dosyası:
 
 Proje ile aynı dizinde "jenkins" klasörünün içinde olmalı.
 
@@ -650,7 +630,7 @@ Dosya içeriği:
 docker run --rm -v $HOME/.m2:/root/.m2 -v $WORKSPACE:/app -w /app maven:3.8-openjdk-11 mvn clean package
 ```
 
-# Pipeline "Build Docker Image" aşamasında kullandığı "Dockerfile" dosyası:
+### Pipeline "Build Docker Image" aşamasında kullandığı "Dockerfile" dosyası:
 
 ```sh
 nano Dockerfile

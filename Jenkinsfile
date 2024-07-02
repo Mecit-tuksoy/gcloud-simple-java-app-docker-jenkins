@@ -15,8 +15,8 @@ pipeline {
     stages {
         stage('Clone repository') {
             steps {
-                sh 'rm -rf simple-java-container-CI-CD || true'
-                sh 'git clone https://github.com/Mecit-tuksoy/simple-java-container-CI-CD.git'
+                sh 'rm -rf gcloud-simple-java-app-docker-jenkins || true'
+                sh 'git clone https://github.com/Mecit-tuksoy/gcloud-simple-java-app-docker-jenkins.git'
             }
         }
 
