@@ -1,31 +1,8 @@
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-####################################################################
-
 # Google Cloud Platform'da Ubuntu 24.04 LTS Minimal Sunucu Kurulumu
 
-####################################################################
+
 
 # Google Cloud Platform'da Proje Oluşturma
 
