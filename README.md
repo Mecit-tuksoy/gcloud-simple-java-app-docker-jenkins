@@ -1,4 +1,4 @@
-Bu kılavuz, Ubuntu 24.04 LTS üzerinde Jenkins ve Docker kurulumunun adımlarını ayrıntılı olarak açıklamaktadır. Ayrıca, Jenkins ve Docker'ı kullanarak sürekli entegrasyon süreçlerinizi optimize etmek için Nginx ile ters proxy ve SSL sertifikası yapılandırmasını da içermektedir. Bu rehber, DevOps süreçlerinizi hızlandırmak ve güvenli bir ortamda çalışmak için ihtiyacınız olan tüm bilgileri sunmaktadır.
+Bu kılavuz, gcloud'da Ubuntu 24.04 LTS üzerinde Jenkins Pipeline kullanarak GitHub'dan kod çekme, derleme, Docker imajı oluşturma, Docker Hub'a push etme ve 2. linux serverda deploy etme işlemlerini kapsamaktadır. Ayrıca Nginx ile SSL yapılandırmasını için gerekli adımları detaylı olarak açıklamaktadır.
 
 
 # Google Cloud Platform'da Ubuntu 24.04 LTS Minimal Sunucu Kurulumu
